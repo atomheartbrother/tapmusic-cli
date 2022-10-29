@@ -1,17 +1,20 @@
 import requests
 import shutil
 import click
-
+import pathlib
+from datetime import datetime
 # Tapmusic
 
 @click.command()
 @click.argument('user')
 @click.argument('size')
 @click.argument('time')
+@click.argument('dir')
 @click.argument('caption', default='t')
 @click.argument('playcount', default='f')
 
-def tapmusic(user:str, size:str, time:str, caption:str, playcount:str):
+
+def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     
     """tapmusic-cli \n
     user = Your Last.fm username \n
@@ -38,6 +41,7 @@ def tapmusic(user:str, size:str, time:str, caption:str, playcount:str):
         raise click.UsageError('Invalid playcount parameter \n  OPTIONS: t, f')
 
     size = f'{size}x{size}'
+    #if direcotry has filetype, use that as filename. otherwise generate filename from user inputs
 
     if 'm' in time:
         time = f'{time[0]}month'
@@ -51,8 +55,15 @@ def tapmusic(user:str, size:str, time:str, caption:str, playcount:str):
     if playcount == 't':
         playcount = 'true'
     else: playcount = 'false'
-    
 
+
+    fe = pathlib.Path(dir).suffix
+
+    if fe not in ('.jpg','.png'):
+        fname = f'{dir}{user}_{time}_{size}_{datetime.today().strftime("%Y-%m-%dcd_%H:%M:%S")}.jpg'
+    else:
+        fname = dir
+    
     base = "https://tapmusic.net/collage.php"
 
     if caption == 'true' and playcount == 'true':
@@ -69,7 +80,9 @@ def tapmusic(user:str, size:str, time:str, caption:str, playcount:str):
 
     try:
         response = requests.get(url, stream=True)
-        click.echo(response.text)
+        with open(f'{fname}', 'xb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+
     except requests.exceptions.Timeout as t:
         #Maybe set up for a retry, or continue in a retry loop
         print(t)
@@ -86,12 +99,11 @@ def tapmusic(user:str, size:str, time:str, caption:str, playcount:str):
         #If you want http errors (e.g. 401 Unauthorized) to raise exceptions, you can call Response.raise_for_status. That will raise an HTTPError, if the response was an http error.
         raise SystemExit(httpe)
 
-    with open('/home/solomon/Documents/Python/img.jpg', 'wb') as out_file:
-        shutil.copyfileobj(response.raw, out_file)
+    except Exception as e:
+        print(e)
 
     del response
-# Render output in terminal
+# Render output in terminal before user saves it(future update)
 
 if __name__ == '__main__':
     tapmusic()
-
