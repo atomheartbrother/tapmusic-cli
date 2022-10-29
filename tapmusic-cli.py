@@ -3,7 +3,6 @@ import shutil
 import click
 import pathlib
 from datetime import datetime
-# Tapmusic
 
 @click.command()
 @click.argument('user')
@@ -60,7 +59,7 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     fe = pathlib.Path(dir).suffix
 
     if fe not in ('.jpg','.png'):
-        fname = f'{dir}{user}_{time}_{size}_{datetime.today().strftime("%Y-%m-%dcd_%H:%M:%S")}.jpg'
+        fname = f'{dir}{user}_{time}_{size}_{datetime.today().strftime("%Y-%m-%d_%H:%M:%S")}.jpg'
     else:
         fname = dir
     
@@ -103,7 +102,6 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
         print(e)
 
     del response
-# Render output in terminal before user saves it(future update)
 
 if __name__ == '__main__':
     tapmusic()
