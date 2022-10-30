@@ -40,7 +40,6 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
         raise click.UsageError('Invalid playcount parameter \n  OPTIONS: t, f')
 
     size = f'{size}x{size}'
-    #if direcotry has filetype, use that as filename. otherwise generate filename from user inputs
 
     if 'm' in time:
         time = f'{time[0]}month'
