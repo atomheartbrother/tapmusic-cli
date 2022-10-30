@@ -20,7 +20,7 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     size = Collage size.\n 
         OPTIONS: 3, 4, 5, 10 (premium) \n
     time = Time period of your Last.fm history. \n
-        OPTIONS: 7d, 1m, 3m, 6m, 12m \n
+        OPTIONS: 7d, 1m, 3m, 6m, 12m, all \n
     caption = Display album/artist captions? \n
         OPTIONS: t, f \n
     playcount = Display playcount? \n
@@ -30,7 +30,7 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     if size not in ('3', '4', '5', '10'):
         raise click.UsageError('Invalid size parameter \n OPTIONS: 3, 4, 5, 10 (premium)')
 
-    elif time not in ('7d', '1m', '3m', '6m', '12m'):
+    elif time not in ('7d', '1m', '3m', '6m', '12m', 'all'):
         raise click.UsageError('Invalid time parameter \n OPTIONS: 7d, 1m, 3m, 6m, 12m')
 
     elif caption not in ('t', 'f'):
@@ -43,8 +43,10 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
 
     if 'm' in time:
         time = f'{time[0]}month'
-    else:
+    elif 'd' in time:
         time = f'{time[0]}day'
+    else:
+        time = 'overall'
 
     if caption == 't':
         caption = 'true'
