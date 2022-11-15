@@ -66,8 +66,8 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
         playcount = 'true'
     else: playcount = 'false'
 
-    #Use .suffix on dir input to check if user added a file extension.
-    #If user added file extension that is not jpg or png, construct filename using dir + user inputs + current datetime + .jpg.
+    #Use .suffix on dir input to check if user added a file extension
+    #If user added file extension that is not jpg or png, construct filename using dir + user inputs + current datetime + .jpg
     fe = pathlib.Path(dir).suffix
     
     if fe in ('.jpg','.png', 'jpeg'):
@@ -76,6 +76,8 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
         base_dir = f"{dir.rsplit('/',1)[0]}/"
         fname = f"{base_dir}/{user}_{time}_{size}_{datetime.today().strftime('%Y-%m-%d_%H:%M:%S')}.jpg"
     
+
+    #Create final request url with fstrings using user options
     base_url = "https://tapmusic.net/collage.php"
 
     if caption == 'true' and playcount == 'true':
@@ -89,11 +91,17 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
 
     else: url = f"{base_url}?user={user}&type={time}&size={size}"
     
-    #Send created request to tapmusic.net and output image to filepath contained in fname
+    #Send created request to tapmusic.net
+    #Check if response sends back and errors, if so, raise error to user. Otherwise, utput image to filepath contained in fname
     try:
         response = requests.get(url, stream=True)
-        with open(f'{fname}', 'xb') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
+        if ("You don't have permission to do this!") in str(response.content):
+            raise click.UsageError('This account does not have the permission to create 10x10 collages. \nPlease visit tapmusic.net to upgrade for the ability to create 10x10 collages')
+        elif ('This user has no top albums') in str(response.content):
+            raise click.UsageError('User does not have any top albums for the selected time period. \nPlease choose different time period or listen to more music :)')
+        else:
+            with open(f'{fname}', 'xb') as out_file:
+                shutil.copyfileobj(response.raw, out_file)
 
     except requests.exceptions.Timeout as t:
         #Maybe set up for a retry, or continue in a retry loop
