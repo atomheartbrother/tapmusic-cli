@@ -1,5 +1,4 @@
 import requests
-import shutil
 import click
 import pathlib
 from datetime import datetime
@@ -91,17 +90,28 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
 
     else: url = f"{base_url}?user={user}&type={time}&size={size}"
     
-    #Send created request to tapmusic.net
-    #Check if response sends back and errors, if so, raise error to user. Otherwise, utput image to filepath contained in fname
     try:
+        #Send created request to tapmusic.net
         response = requests.get(url, stream=True)
-        if ("You don't have permission to do this!") in str(response.content):
-            raise click.UsageError('This account does not have the permission to create 10x10 collages. \nPlease visit tapmusic.net to upgrade for the ability to create 10x10 collages')
-        elif ('This user has no top albums') in str(response.content):
+        
+        #Use iter_content to break down response content into list object
+        #Once all response content is appended to list object, convert the list to byte literal from string literal
+        chunks = []
+        for x in response.iter_content():
+            chunks.append(x)
+        full_content = b''.join(chunks)
+
+        #Check if response sends back any errors, if so, raise error to user. Otherwise, write image to filepath contained in fname
+        #Program will NOT overwrite a file if it already exists
+        if 'Error 90' in str(full_content):
             raise click.UsageError('User does not have any top albums for the selected time period. \nPlease choose different time period or listen to more music :)')
+        elif 'Error 99' in str(full_content):
+            raise click.UsageError('Last.fm user does not exist or Last.fm API is currently unavailable')
+        elif "You don't have permission to do this!" in str(full_content):
+            raise click.UsageError('This account does not have the permission to create 10x10 collages. \nPlease visit tapmusic.net to upgrade for the ability to create 10x10 collages')
         else:
-            with open(f'{fname}', 'xb') as out_file:
-                shutil.copyfileobj(response.raw, out_file)
+            with open(fname, 'xb') as out_file:
+                out_file.write(full_content)
 
     except requests.exceptions.Timeout as t:
         #Maybe set up for a retry, or continue in a retry loop
