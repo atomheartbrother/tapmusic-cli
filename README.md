@@ -1,4 +1,6 @@
 # tapmusic-cli
+![PyPI](https://img.shields.io/pypi/v/tpmsc?color=g)
+
 CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 
 ## Requirements
