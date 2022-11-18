@@ -12,7 +12,7 @@ from datetime import datetime
 @click.argument('playcount', default='f')
 
 
-def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
+def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     
     """tapmusic-cli \n
     user = Your Last.fm username. \n
@@ -135,4 +135,4 @@ def tapmusic(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     del response
 
 if __name__ == '__main__':
-    tapmusic()
+    main()
