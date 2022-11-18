@@ -33,11 +33,11 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
       -  Otherwise, if only a directory is provided, a filename will be generated using user inputs and current datetime.
          -  Eg: `/path/to/file/$USER_$TIME_$SIZE_$DATETIME.jpg`
          
-   -  **caption** = Display album/artist captions? 
+   -  **caption** = Display album/artist captions? *Optional*
       -  Options: t, f
       -  Default = True
       
-   -  **playcount** = Display playcount? 
+   -  **playcount** = Display playcount? *Optional*
       -  Options: t, f
       -  Default = False
 
