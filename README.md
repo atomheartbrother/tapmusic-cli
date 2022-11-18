@@ -3,11 +3,21 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 
 ## Requirements
 
-Last.FM account connected to your music player of choice
-  
+-  Last.FM account connected to your music player of choice
    - [Create Last.FM account](https://www.last.fm/home) if you do not already have one
    - Connect your music player to Last.FM, [Guide for Spotify ](https://community.spotify.com/t5/FAQs/How-can-I-connect-Spotify-to-Last-fm/ta-p/4795301)
-   
+-  Python 3.5^ installed on your machine
+
+## Install
+
+`pip install tpmsc`
+
+## ToDo
+
+- [x] UNIX support
+- [ ] Windows support
+- [ ] Option to preview your collage in terminal before saving it
+
 ## Examples
 ###### 5x5 (artist name & playcount):
 
