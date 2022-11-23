@@ -66,15 +66,17 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     else: playcount = 'false'
 
     #Use .suffix on dir input to check if user added a file extension
-    #If user added file extension that is not jpg or png, construct filename using dir + user inputs + current datetime + .jpg
+
+    #If user added file extension that is not jpg or png, construct Path object using dir + user inputs + current datetime + .jpg
+    #Path object is used so program can handle filepaths of different OS's Windows/Unix
     fe = pathlib.Path(dir).suffix
     
     if fe in ('.jpg','.png', 'jpeg'):
-        fname = dir
+        fname = pathlib.Path(dir)
     else:
         base_dir = f"{dir.rsplit('/',1)[0]}/"
-        fname = f"{base_dir}/{user}_{time}_{size}_{datetime.today().strftime('%Y-%m-%d_%H:%M:%S')}.jpg"
-    
+        fl = f"{base_dir}{user}_{time}_{size}_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}.jpg"
+        fname = pathlib.Path(fl)
 
     #Create final request url with fstrings using user options
     base_url = "https://tapmusic.net/collage.php"
@@ -89,7 +91,7 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
         url = f"{base_url}?user={user}&type={time}&size={size}&playcount={playcount}"
 
     else: url = f"{base_url}?user={user}&type={time}&size={size}"
-    
+
     try:
         #Send created request to tapmusic.net
         response = requests.get(url, stream=True)
