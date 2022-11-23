@@ -66,6 +66,7 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     else: playcount = 'false'
 
     #Use .suffix on dir input to check if user added a file extension
+
     #If user added file extension that is not jpg or png, construct Path object using dir + user inputs + current datetime + .jpg
     #Path object is used so program can handle filepaths of different OS's Windows/Unix
     fe = pathlib.Path(dir).suffix
