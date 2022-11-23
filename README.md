@@ -57,7 +57,7 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 ## Todo
 - [x] UNIX support
 
-- [ ] Windows support
+- [x] Windows support
 
 - [ ] Option to preview your collage in terminal before saving it
 
