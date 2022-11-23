@@ -73,9 +73,9 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     if fe in ('.jpg','.png', 'jpeg'):
         fname = pathlib.Path(dir)
     else:
-        base_dir = pathlib.Path(f"{dir.rsplit('/',1)[0]}/")
-        fl = f"{user}_{time}_{size}_{datetime.today().strftime('%Y-%m-%d_%H:%M:%S')}.jpg"
-        fname = base_dir / fl
+        base_dir = f"{dir.rsplit('/',1)[0]}/"
+        fl = f"{base_dir}{user}_{time}_{size}_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}.jpg"
+        fname = pathlib.Path(fl)
 
     #Create final request url with fstrings using user options
     base_url = "https://tapmusic.net/collage.php"
@@ -90,7 +90,7 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
         url = f"{base_url}?user={user}&type={time}&size={size}&playcount={playcount}"
 
     else: url = f"{base_url}?user={user}&type={time}&size={size}"
-    
+
     try:
         #Send created request to tapmusic.net
         response = requests.get(url, stream=True)

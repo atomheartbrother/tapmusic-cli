@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tpmsc"
-version = "0.1.4"
+version = "0.2.5"
 description = "CLI tool to download music collages from tapmusic.net"
 authors = ["atomheartbrother <rhnsolomon@gmail.com>"]
 license = "MIT"
