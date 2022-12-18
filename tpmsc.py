@@ -17,12 +17,12 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     """tapmusic-cli \n
     user = Your Last.fm username. \n
     size = Collage size.\n 
-        OPTIONS: 3, 4, 5, 10 (premium) \n
+        OPTIONS: 3, 4, 5, 10\n
     time = Time period of your Last.fm history. \n
         OPTIONS: 7d, 1m, 3m, 6m, 12m, all \n
     dir = Directory where you want to save your collage. \n
         To use a custom filename for your collage file, please use .jpg or .png as file extension. \n
-            EX: /path/to/file/myCustomCollage.jpg \n
+            EX: /path/to/file/myCustomCollage.jpg\n
         Otherwise, if only a directory is provided, a filename will be generated using user inputs and current date. \n
             EX: /path/to/file/$USER_$TIME_$SIZE_$DATETIME.jpg \n
     caption = Display album/artist captions? \n
@@ -33,7 +33,7 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     
     #Verify user entered acceptable inputs. If not, raise error to explain issue. 
     if size not in ('3', '4', '5', '10'):
-        raise click.UsageError('Invalid size parameter \n OPTIONS: 3, 4, 5, 10 (premium)')
+        raise click.UsageError('Invalid size parameter \n OPTIONS: 3, 4, 5, 10')
 
     elif time not in ('7d', '1m', '3m', '6m', '12m', 'all'):
         raise click.UsageError('Invalid time parameter \n OPTIONS: 7d, 1m, 3m, 6m, 12m')
@@ -66,7 +66,6 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
     else: playcount = 'false'
 
     #Use .suffix on dir input to check if user added a file extension
-
     #If user added file extension that is not jpg or png, construct Path object using dir + user inputs + current datetime + .jpg
     #Path object is used so program can handle filepaths of different OS's Windows/Unix
     fe = pathlib.Path(dir).suffix
@@ -109,8 +108,6 @@ def main(user:str, size:str, time:str, dir:str, caption:str, playcount:str):
             raise click.UsageError('User does not have any top albums for the selected time period. \nPlease choose different time period or listen to more music :)')
         elif 'Error 99' in str(full_content):
             raise click.UsageError('Last.fm user does not exist or Last.fm API is currently unavailable')
-        elif "You don't have permission to do this!" in str(full_content):
-            raise click.UsageError('This account does not have the permission to create 10x10 collages. \nPlease visit tapmusic.net to upgrade for the ability to create 10x10 collages')
         else:
             with open(fname, 'xb') as out_file:
                 out_file.write(full_content)
