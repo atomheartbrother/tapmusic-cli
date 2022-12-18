@@ -22,7 +22,7 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 ###### Args:
    -  **user** = Your Last.fm username.
    -  **size** = Collage size.
-      -  Options: 3, 4, 5, 10 (10 is only available premium tapmusic.net users)
+      -  Options: 3, 4, 5, 10
       
    -  **time** = Time period of your Last.fm history.
       -  Options: 7d, 1m, 3m, 6m, 12m, all
@@ -50,7 +50,7 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 
 ![3x3](/images/3x3.jpg)
 
-###### 10x10 (artist name, no playcount, premium only):
+###### 10x10 (artist name, no playcount):
 
 ![10x10](/images/10x10.jpg)
 
@@ -60,6 +60,3 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 - [x] Windows support
 
 - [ ] Option to preview your collage in terminal before saving it
-
-
-
