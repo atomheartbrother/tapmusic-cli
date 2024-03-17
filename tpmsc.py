@@ -139,7 +139,7 @@ class TapMusicCLI():
             `file_: (optional)`
                 Save returned collage under a custom file name.
                 File extension can only be .jpg, .jpeg, or .png.
-                `DEFAULT:` `/path/to/file/$USER_$TIME_$SIZE_$%Y-%m-%d_%H%M%S.jpg`
+                `DEFAULT:` `$USER_$TIME_$SIZE_$%Y-%m-%d_%H%M%S.jpg`
         """
 
         self.user: str = user
