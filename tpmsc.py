@@ -116,7 +116,7 @@ class TapMusicCLI():
                 Your last.fm username.
 
             `size:`
-                Collage size.
+                Collage size. 
                 `OPTIONS:` `[3, 4, 5, 10]`
 
             `time:`
