@@ -116,28 +116,30 @@ class TapMusicCLI():
                 Your last.fm username.
 
             `size:`
-                Collage size. 
+                Collage size.
                 `OPTIONS:` `[3, 4, 5, 10]`
 
             `time:`
                 Time period of your Last.fm history.
                 `OPTIONS:` `[7d, 1m, 3m, 6m, 12m, all]`
 
-            `dir:`
+            `dir_:`
                 Directory where you want to save your collage.
-                To use a custom filename for your collage file, please use .jpg or .png as file extension.
-                    `EX:` `/path/to/file/myCustomCollage.jpg`
 
-                Otherwise, if only a directory is provided, a filename will be generated using user inputs and current date.
-                    `EX:` `/path/to/file/$USER_$TIME_$SIZE_$DATETIME.jpg`
-
-            `caption:`
+            `caption: (optional)`
                 Display album/artist captions in collage?
                 `OPTIONS:` `[t, f]`
+                `DEFAULT:` `t`
 
-            `playcount:`
+            `playcount: (optional)`
                 Display playcount in collage?
                 `OPTIONS:` `[t, f]`
+                `DEFAULT:` `f`
+
+            `file_: (optional)`
+                Save returned collage under a custom file name.
+                File extension can only be .jpg, .jpeg, or .png.
+                `DEFAULT:` `/path/to/file/$USER_$TIME_$SIZE_$%Y-%m-%d_%H%M%S.jpg`
         """
 
         self.user: str = user
@@ -152,12 +154,12 @@ class TapMusicCLI():
         self.base_url: str = "https://tapmusic.net/collage.php"
         self.url: str = self._build_url()
 
-    def _build_filepath(self):
+    def _build_filepath(self) -> Path:
         if self.file_ == '':
             self.file_ = f"{self.user}_{self.time}_{self.size}_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}.jpg"
         return self.dir_ / self.file_
 
-    def _build_url(self):
+    def _build_url(self) -> str:
         url = f"{self.base_url}?user={self.user}&type={self.time}&size={self.size}"
 
         if self.caption == 'true':
@@ -188,10 +190,8 @@ def get_collage(url: str, fpath: str):
         response = requests.get(url, stream=True)
         
         #Use iter_content to break down response content into list
-        #Once all response content is appended to list, convert the list from strings to bytes
-        chunks = []
-        for x in response.iter_content():
-            chunks.append(x)
+        #Once all response content is appended to list, convert the chunk list to bytes
+        chunks = [chunk for chunk in response.iter_content()]
         full_content = b''.join(chunks)
 
         #Check if response sends back any errors, if so, raise error to user. Otherwise, write image to filepath
