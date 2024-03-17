@@ -12,34 +12,34 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 
 ## Installation and Usage
 
-###### Install: 
+### Install 
 `pip install tpmsc`
 
-###### Run: 
-`tpmsc [user] [size] [time] [dir] [caption]* [playcount]*`
+### Run 
+`tpmsc [user] [size] [time] [dir] [caption]* [playcount]* [file]`
    -  `*` = optional args
 
-###### Args:
+#### Args:
    -  **user** = Your Last.fm username.
+   
    -  **size** = Collage size.
-      -  Options: 3, 4, 5, 10
-      
+      -  Options: `3, 4, 5, 10`
+
    -  **time** = Time period of your Last.fm history.
-      -  Options: 7d, 1m, 3m, 6m, 12m, all
+      -  Options: `7d, 1m, 3m, 6m, 12m, all`
       
    -  **dir** = Directory where you want to save your collage.
-      -  To use a custom filename for your collage file, please use .jpg or .png as the file extension.
-         - Eg: `/path/to/file/myCustomCollage.jpg`
-      -  Otherwise, if only a directory is provided, a filename will be generated using user inputs and current datetime.
-         -  Eg: `/path/to/file/$USER_$TIME_$SIZE_$DATETIME.jpg`
          
    -  **caption** = Display album/artist captions? *Optional*
-      -  Options: t, f
-      -  Default = True
+      -  Options: `t, f`
+      -  Default = `t`
       
    -  **playcount** = Display playcount? *Optional*
-      -  Options: t, f
-      -  Default = False
+      -  Options: `t, f`
+      -  Default = `f`
+   
+   -  **file** = Save returned collage under a custom file name. *Optional*
+      - Default = `$USER_$TIME_$SIZE_$%Y-%m-%d_%H%M%S.jpg`
 
 ## Examples
 ###### 5x5 (artist name & playcount):
@@ -58,5 +58,3 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 - [x] UNIX support
 
 - [x] Windows support
-
-- [ ] Option to preview your collage in terminal before saving it
