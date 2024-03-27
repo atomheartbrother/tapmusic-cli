@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tpmsc"
-version = "0.2.5"
+version = "1.0.0"
 description = "CLI tool to download music collages from tapmusic.net"
 authors = ["atomheartbrother <rhnsolomon@gmail.com>"]
 license = "MIT"
@@ -10,7 +10,7 @@ packages = [{include = "tpmsc.py"}]
 tpmsc = 'tpmsc:app'
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.6"
 requests = "^2.28.1"
 pathlib = "^1.0.1"
 
