@@ -212,7 +212,14 @@ def get_collage(url: str, fpath: str):
 
 def app():
     args = cli_args()
-    t = TapMusicCLI(user=args.user, dir_=args.dir, size=args.size, time=args.time, caption=args.caption, playcount=args.playcount, file_=args.file)
+    t = TapMusicCLI(user=args.user, 
+                    dir_=args.dir, 
+                    size=args.size, 
+                    time=args.time, 
+                    caption=args.caption, 
+                    playcount=args.playcount, 
+                    file_=args.file
+                    )
     get_collage(url=t.url, fpath=t.fpath)
 
 if __name__ == '__main__':
