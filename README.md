@@ -16,8 +16,7 @@ CLI tool to download music collages from [tapmusic.net](https://tapmusic.net/)
 `pip install tpmsc`
 
 ### Run 
-`tpmsc [user] [size] [time] [dir] [caption]* [playcount]* [file]`
-   -  `*` = optional args
+`tpmsc [user] [size] [time] [dir] --caption --playcount --file`
 
 #### Args:
    -  **user** = Your Last.fm username.
